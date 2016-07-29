@@ -21,7 +21,9 @@ return [
                 'scfop'=>'666',
                 'cst'=>'102',
                 'clfiscal'=>'000000',
-                'unidade'=>'UN'
+                'unidade'=>'UN',
+                'cpgto'=>['A VISTA'=>'A VISTA','CREDIARIO'=>'CREDIARIO'],
+                'fpgto'=>['1'=>"A VISTA",'2'=>"UMA MAIS UMA (2 OU 1 + 1)",'2'=>"UMA MAIS DUAS (3 VZ OU 1 + 2)",'4'=>"UMA MAIS TREZ (4 OU 1 +3)",'5'=>"UMA MAIS QUATRO (5 OU 1 + 4)"]
                 ]
 ];
 

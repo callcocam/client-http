@@ -12,6 +12,7 @@ namespace Base\Form;
 use Admin\Model\Issusers\IssusersRepository;
 use Auth\Model\Roles\Roles;
 use Auth\Model\Roles\RolesRepository;
+use Auth\Storage\IdentityManager;
 use Base\Services\Client;
 use Base\View\Helper\Form\Custom\Captcha\CustomCaptcha;
 use Interop\Container\ContainerInterface;
@@ -22,6 +23,8 @@ class AbstractForm extends Form{
 
     protected $container;
     protected $authservice;
+
+
     protected $cache;
     protected $companies;
     protected $captchaImage;
@@ -46,6 +49,8 @@ class AbstractForm extends Form{
     protected $save;
     protected $savecopy;
     public static $STATE = ['0' => "OPTION_PUBLICADO_LABEL", '1' => "OPTION_ARQUIVADO_LABEL", '2' => "OPTION_LIXEIRA_LABEL"];
+
+
     public function __construct(ContainerInterface $container,$name, $options = [])
     {
         parent::__construct($name, $options);
@@ -137,6 +142,16 @@ class AbstractForm extends Form{
         endif;
 
 
+    }
+
+
+    /**
+     * @return mixed
+     */
+    public function getAuthservice()
+    {
+        $this->authservice=$this->container->get(IdentityManager::class)->hasIdentity();
+        return $this->authservice;
     }
 
 
@@ -448,6 +463,8 @@ class AbstractForm extends Form{
 
         return $valueOptions;
     }
+
+
 
 
 }

@@ -18,7 +18,6 @@ class Vendas extends AbstractModel {
     protected $cliente_id;
     protected $fpgto;
     protected $cpgto;
-    protected $parcelas;
     protected $desconto;
     protected $juros;
     protected $pago;
@@ -136,21 +135,7 @@ class Vendas extends AbstractModel {
         $this->pago = $pago;
     }
 
-    /**
-     * @return mixed
-     */
-    public function getParcelas()
-    {
-        return $this->parcelas;
-    }
 
-    /**
-     * @param mixed $parcelas
-     */
-    public function setParcelas($parcelas)
-    {
-        $this->parcelas = $parcelas;
-    }
 
     /**
      * @return mixed
