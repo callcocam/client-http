@@ -42,7 +42,8 @@
             "Auth\\": "module_rest/Auth/src/",
             "Home\\": "module_rest/Home/src/",
             "Mail\\": "module_rest/Mail/src/",
-            "Estoque\\": "module_rest/Estoque/src/"
+            "Estoque\\": "module_rest/Estoque/src/",
+            "Vendas\\": "module_rest/Vendas/src/"
         }
     },
     "autoload-dev": {

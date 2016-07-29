@@ -31,5 +31,6 @@ return [
     'Mail',
     'Auth',
     'Home',
-    'Estoque'
+    'Estoque',
+    'Vendas'
 ];

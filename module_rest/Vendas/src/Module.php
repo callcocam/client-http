@@ -9,6 +9,14 @@
 namespace Vendas;
 
 
+use Vendas\Model\Vendas\Factory\ItensVendidosFactory;
+use Vendas\Model\Vendas\Factory\ItensVendidosRepositoryFactory;
+use Vendas\Model\Vendas\Factory\VendasFactory;
+use Vendas\Model\Vendas\Factory\VendasRepositoryFactory;
+use Vendas\Model\Vendas\ItensVendidos;
+use Vendas\Model\Vendas\ItensVendidosRepository;
+use Vendas\Model\Vendas\Vendas;
+use Vendas\Model\Vendas\VendasRepository;
 use Zend\ModuleManager\Feature\ConfigProviderInterface;
 use Zend\ModuleManager\Feature\ControllerPluginProviderInterface;
 use Zend\ModuleManager\Feature\ServiceProviderInterface;
@@ -33,7 +41,14 @@ class Module implements ConfigProviderInterface, ServiceProviderInterface,Contro
      */
     public function getServiceConfig()
     {
-        // TODO: Implement getServiceConfig() method.
+        return [
+            'factories'=>[
+                Vendas::class=>VendasFactory::class,
+                VendasRepository::class=>VendasRepositoryFactory::class,
+                ItensVendidos::class=>ItensVendidosFactory::class,
+                ItensVendidosRepository::class=>ItensVendidosRepositoryFactory::class,
+            ]
+        ];
     }
 
     /**

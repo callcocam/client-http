@@ -166,6 +166,32 @@ return [
                             ]
                         ]
                     ],
+                    [
+                        'label' => 'Vendas',
+                        'route' => 'vendas',
+                        'controller' => 'vendas',
+                        'resource' => 'vendas',
+                        'action' => 'index',
+                        'privilege' => 'index',
+                        'pages'=>[
+                            [
+                                'label' => 'Listar Vendas',
+                                'route' => 'vendas',
+                                'controller' => 'vendas',
+                                'resource' => 'vendas',
+                                'action' => 'index',
+                                'privilege' => 'index',
+                            ],
+                            [
+                                'label' => 'Nova Venda',
+                                'route' => 'vendas',
+                                'controller' => 'vendas',
+                                'resource' => 'vendas',
+                                'action' => 'create',
+                                'privilege' => 'create',
+                            ]
+                        ]
+                    ],
 
                 ]
             ],
