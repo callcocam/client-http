@@ -18,7 +18,19 @@
                         ->prependStylesheet($this->basePath('fonts/css/font-awesome.min.css'))
                         ->prependStylesheet($this->basePath('css/bootstrap.min.css'))
         ?>
-
+        <!-- Scripts -->
+        <?= $this->headScript()
+            ->prependFile($this->basePath('js/Manager.js'))
+            ->prependFile($this->basePath('js/notify.init.js'))
+            ->prependFile($this->basePath('js/custom.js'))
+            ->prependFile($this->basePath('js/wizard/jquery.smartWizard.js'))
+            ->prependFile($this->basePath('js/pnotify.custom.min.js'))
+            ->prependFile($this->basePath('js/jquery.form.min.js'))
+            ->prependFile($this->basePath('js/nprogress.js'))
+            ->prependFile($this->basePath('js/icheck/icheck.min.js'))
+            ->prependFile($this->basePath('js/bootstrap.min.js'))
+            ->prependFile($this->basePath('js/jquery.min.js'))
+        ?>
         
     </head>
 <body class="nav-md">
@@ -86,18 +98,6 @@
     <div id="notif-group" class="tabbed_notifications"></div>
   </div>
           
-        <!-- Scripts -->
-        <?= $this->headScript()
-        ->prependFile($this->basePath('js/Manager.js'))
-        ->prependFile($this->basePath('js/notify.init.js'))
-        ->prependFile($this->basePath('js/custom.js'))
-        ->prependFile($this->basePath('js/pnotify.custom.min.js'))
-        ->prependFile($this->basePath('js/jquery.form.min.js'))
-        ->prependFile($this->basePath('js/nprogress.js'))
-        ->prependFile($this->basePath('js/icheck/icheck.min.js'))
-        ->prependFile($this->basePath('js/bootstrap.min.js'))
-        ->prependFile($this->basePath('js/jquery.min.js'))
-        ?>
 
         <?= $this->inlineScript() ?>
     </body>

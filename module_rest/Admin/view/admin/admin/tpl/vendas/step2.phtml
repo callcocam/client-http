@@ -1,0 +1,36 @@
+<div id="step-2">
+    <fieldset>
+        <legend>ADICIONAR ITENS AO PEDIDO</legend>
+        <div class="row">
+            <div class="col-md-12">
+                <?php echo $this->ItenVendidosHelper()->getForm();?>
+            </div>
+        </div>
+    </fieldset>
+    <fieldset>
+        <legend>LISTA DE ITENS DO PEDIDO</legend>
+        <div class="row">
+            <div class="col-md-12">
+                <table class="table table-condensed table-hover">
+                    <thead>
+                    <tr>
+                        <th>CODIGO</th>
+                        <th>NOME/DESCRIÇÃO</th>
+                        <th>QTDADE</th>
+                        <th>V. UNITARIO</th>
+                        <th>VALOR</th>
+                        <th>#</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr>
+                        <td colspan="6">Não Produtos Na Lista</td>
+                    </tr>
+                    </tbody>
+                </table>
+
+            </div>
+
+        </div>
+    </fieldset>
+</div>

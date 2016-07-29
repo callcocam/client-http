@@ -11,6 +11,8 @@ namespace Vendas\Controller;
 
 use Base\Controller\AbstractController;
 use Interop\Container\ContainerInterface;
+use Vendas\Form\VendasFilter;
+use Vendas\Form\VendasForm;
 use Vendas\Model\Vendas\Vendas;
 use Vendas\Model\Vendas\VendasRepository;
 
@@ -21,8 +23,10 @@ class VendasController extends AbstractController{
         $this->container=$container;
         $this->table=VendasRepository::class;
         $this->model=Vendas::class;
-
+        $this->form=VendasForm::class;
+        $this->filter=VendasFilter::class;
         $this->route="vendas";
         $this->controller="vendas";
+        //$this->template="admin/admin/vendas/inserir";
     }
 }

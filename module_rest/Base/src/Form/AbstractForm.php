@@ -113,7 +113,7 @@ class AbstractForm extends Form{
                 $roles=$this->container->get(RolesRepository::class);
                 $this->get('access')->setOptions(['value_options' => $roles->getRoleId()]);
             else:
-                $this->get('access')->setValue(isset($this->authservice['role_id'])?$this->authservice['role_id']:'1');
+                $this->get('access')->setValue(isset($this->authservice->role_id)?$this->authservice->role_id:'1');
             endif;
 
         endif;
@@ -126,7 +126,7 @@ class AbstractForm extends Form{
                 $this->get('empresa')->setOptions(['value_options' => $empresas->getEmpresas()]);
 
             else:
-                $this->get('empresa')->setValue(isset($this->authservice['id'])?$this->authservice['id']:'1');
+                $this->get('empresa')->setValue(isset($this->authservice->id)?$this->authservice->id:'1');
             endif;
         endif;
 

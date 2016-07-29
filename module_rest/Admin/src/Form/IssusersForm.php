@@ -30,7 +30,7 @@ class IssusersForm extends AbstractForm {
         $this->setState([]);
         $this->setDescription([]);
         parent::__construct($container, $name);
-        $this->setAttributes(['action' => 'users', 'class' => 'form-horizontal']);
+        $this->setAttributes(['action' => 'users', 'class' => 'form-geral Manager  form-horizontal form-label-left']);
 
 
         $this->add([

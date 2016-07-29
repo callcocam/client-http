@@ -11,6 +11,8 @@ namespace Vendas\Controller;
 
 use Base\Controller\AbstractController;
 use Interop\Container\ContainerInterface;
+use Vendas\Form\ItensVendidosFilter;
+use Vendas\Form\ItensVendidosForm;
 use Vendas\Model\Vendas\ItensVendidos;
 use Vendas\Model\Vendas\ItensVendidosRepository;
 
@@ -21,7 +23,8 @@ class ItensVendidosController extends AbstractController{
         $this->container=$container;
         $this->table=ItensVendidosRepository::class;
         $this->model=ItensVendidos::class;
-
+        $this->form=ItensVendidosForm::class;
+        $this->filter=ItensVendidosFilter::class;
         $this->route="itensvendidos";
         $this->controller="itensvendidos";
     }

@@ -133,8 +133,7 @@ abstract class AbstractRepository{
      */
     public function findBy(array $param) {
         $this->setData();
-        $this->filtro($param);
-        $this->data->setData($this->tableGateway->select($this->where));
+        $this->data->setData($this->tableGateway->select($param));
         $this->data->setClass(self::SUCCESS);
         $this->data->setResult(TRUE);
         return $this->data;

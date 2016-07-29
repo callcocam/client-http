@@ -2,7 +2,6 @@
 echo $this->messages();
 $form = $this->form;
 $form->setAttribute('action', $this->url($this->route, array('controller' => $this->controller, 'action' => 'finaliza')));
-$form->setAttribute('class', 'form-geral Manager  form-horizontal form-label-left');
 $this->formElementErrors()
     ->setMessageOpenFormat('<ul class="nav"><li class="erro-obrigatorio">')
     ->setMessageSeparatorString('</li>')->render($form);

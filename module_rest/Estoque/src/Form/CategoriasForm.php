@@ -29,7 +29,7 @@ class CategoriasForm extends AbstractForm{
         $this->setState([]);
         $this->setDescription([]);
         parent::__construct($container, $name);
-        $this->setAttributes(['action' => 'produtos', 'class' => 'form-horizontal']);
+        $this->setAttributes(['action' => 'produtos', 'class' => 'form-geral Manager  form-horizontal form-label-left']);
 
         $this->add([
             'type' => 'text',

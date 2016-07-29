@@ -9,6 +9,7 @@
 namespace Vendas\Form;
 
 
+use Auth\Model\Users\UsersRepository;
 use Base\Form\AbstractForm;
 use Base\Form\Interfaces\AbstractFormInterface;
 use Interop\Container\ContainerInterface;
@@ -19,19 +20,32 @@ class VendasForm extends AbstractForm implements AbstractFormInterface{
         $this->container = $container;
         $this->setId([]);
         $this->setAssetid([]);
-        $this->setCodigo([]);
+        $this->setCodigo([
+            'type' => 'text',
+            'options' => [
+                'label' => 'FILD_CODIGO_LABEL'
+            ],
+            'attributes' => [
+                'class' => 'form-control cabecalho',
+                'placeholder' => 'FILD_CODIGO_PLACEHOLDER',
+                'title' => 'FILD_CODIGO_TITLE',
+                'data-access' => '3',
+                'data-position' => 'geral',
+            ]
+        ]);
         $this->setAccess([]);
         $this->setCreated([]);
         $this->setEmpresa([]);
-        $this->setModified([]);
+        $this->setModified(['type' => 'hidden']);
         $this->setSave([]);
         $this->setCsrf([]);
-        $this->setState([]);
-        $this->setDescription([]);
+        $this->setState(['type' => 'hidden']);
+        $this->setDescription([ 'attributes' => [
+            'class' => 'form-control cabecalho'
+        ]]);
         $this->getAuthservice();
         parent::__construct($container, $name, $options);
-        $this->setAttributes(['action' => 'vendas', 'class' => 'form-horizontal']);
-
+        $this->setAttributes(['action' => 'vendas', 'class' => 'form-geral Manager form-horizontal']);
         $this->add([
             'type' => 'select',
             'name' => 'cliente_id',
@@ -40,7 +54,7 @@ class VendasForm extends AbstractForm implements AbstractFormInterface{
             ],
             'attributes' => [
                 'id' => 'cliente_id',
-                'class' => 'form-control',
+                'class' => 'form-control cabecalho',
                 'placeholder' => 'FILD_CLIENTE_ID_PLACEHOLDER',
                 'title' => 'FILD_CLIENTE_ID_TITLE',
                 'data-access' => '3',
@@ -53,12 +67,12 @@ class VendasForm extends AbstractForm implements AbstractFormInterface{
             'name' => 'cpgto',
             'options' => [
                 'label' => 'FILD_CPGTO_LABEL',
-                'value_options'=>$this->config->cpgto
+                'value_options'=>$this->config->get('cpgto',['--'=>'--SELECIONE--'])->toArray()
             ],
             'attributes' => [
                 'id' => 'cpgto',
                 'value'=>'A VISTA',
-                'class' => 'form-control',
+                'class' => 'form-control cabecalho',
                 'placeholder' => 'FILD_CPGTO_PLACEHOLDER',
                 'title' => 'FILD_CPGTO_TITLE',
                 'data-access' => '3',
@@ -86,11 +100,12 @@ class VendasForm extends AbstractForm implements AbstractFormInterface{
             ],
             'attributes' => [
                 'id' => 'desconto',
-                'class' => 'form-control real',
+                'class' => 'form-control real cabecalho',
                 'placeholder' => 'FILD_DESCONTO_PLACEHOLDER',
                 'title' => 'FILD_DESCONTO_TITLE',
                 'data-access' => '3',
                 'data-position' => 'geral',
+                'value'=>'0,00'
             ]
         ]);
 
@@ -99,11 +114,11 @@ class VendasForm extends AbstractForm implements AbstractFormInterface{
             'name' => 'fpgto',
             'options' => [
                 'label' => 'FILD_FPGTO_LABEL',
-                'value_options'=>$this->config->fpgto
+                'value_options'=>$this->config->get('fpgto',['--'=>'--SELECIONE--'])->toArray()
             ],
             'attributes' => [
                 'id' => 'fpgto',
-                'class' => 'form-control',
+                'class' => 'form-control cabecalho',
                 'placeholder' => 'FILD_FPGTO_PLACEHOLDER',
                 'title' => 'FILD_FPGTO_TITLE',
                 'data-access' => '3',
@@ -119,11 +134,12 @@ class VendasForm extends AbstractForm implements AbstractFormInterface{
             ],
             'attributes' => [
                 'id' => 'juros',
-                'class' => 'form-control real',
+                'class' => 'form-control real cabecalho',
                 'placeholder' => 'FILD_JUROS_PLACEHOLDER',
                 'title' => 'FILD_JUROS_TITLE',
                 'data-access' => '3',
                 'data-position' => 'geral',
+                'value'=>'0,00'
             ]
         ]);
 
@@ -135,11 +151,12 @@ class VendasForm extends AbstractForm implements AbstractFormInterface{
             ],
             'attributes' => [
                 'id' => 'pago',
-                'class' => 'form-control real',
+                'class' => 'form-control real cabecalho',
                 'placeholder' => 'FILD_PAGO_PLACEHOLDER',
                 'title' => 'FILD_PAGO_TITLE',
                 'data-access' => '3',
                 'data-position' => 'geral',
+                'value'=>'0,00'
             ]
         ]);
 
@@ -153,23 +170,20 @@ class VendasForm extends AbstractForm implements AbstractFormInterface{
             ],
             'attributes' => [
                 'id' => 'valor',
-                'class' => 'form-control real',
+                'class' => 'form-control real cabecalho',
                 'placeholder' => 'FILD_VALOR_PLACEHOLDER',
                 'title' => 'FILD_VALOR_TITLE',
                 'data-access' => '3',
                 'data-position' => 'geral',
+                'value'=>'0,00'
             ]
         ]);
 
         $this->add(array(
-            'type' => 'radio',
+            'type' => 'select',
             'name' => 'tipo',
             'options' => array(
                 'label' => 'FILD_TIPO_LABEL',
-                'label_attributes' => array(
-                    'class' => 'css-label ',
-                    'id' => 'sliderLabel',
-                ),
                 'value_options' =>  ['0'=>"ENTRADA","1"=>"SAIDA"],
                 "disable_inarray_validator" => true,
             ),
@@ -179,12 +193,21 @@ class VendasForm extends AbstractForm implements AbstractFormInterface{
                 'title' => 'Serviço Ou produto',
                 'data-access' => '3',
                 'data-position' => 'geral',
-                'class' => 'css-checkbox situacao flat',
+                'class' => 'css-checkbox situacao  form-control cabecalho',
             )
         ));
 
+        if ($this->has('cliente_id')):
+            if($this->get('cliente_id')->getAttribute('type')=="select"):
+                $this->get('cliente_id')->setOptions(['value_options' => $this->setValueOption(UsersRepository::class,['role_id'=>'5'])]);
+
+            else:
+                $this->get('cliente_id')->setValue('0');
+            endif;
+        endif;
 
     }
+
 
 
 }

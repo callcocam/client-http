@@ -28,7 +28,7 @@ class ResourcesForm extends AbstractForm {
         $this->setState([]);
         $this->setDescription([]);
         parent::__construct($container,$name);
-        $this->setAttributes(['action'=>'resources','class'=>'form-horizontal']);
+        $this->setAttributes(['action'=>'resources','class'=>'form-geral Manager  form-horizontal form-label-left']);
 
 
 

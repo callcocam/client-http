@@ -18,7 +18,7 @@ class UpdatePasswordForm extends AbstractForm {
         $this->setSave([]);
         $this->setCsrf([]);
         parent::__construct($container,$name);
-        $this->setAttributes(['action'=>'update-password','class'=>'form-horizontal']);
+        $this->setAttributes(['action'=>'update-password','class'=>'form-geral Manager  form-horizontal form-label-left']);
 
         $this->add([
             'type'=>'password',
