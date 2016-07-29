@@ -11,3 +11,5 @@ vendor/
 composer.phar
 config/development.config.php
 phpunit.xml
+public/dist/cache/
+module_rest/ZfCall/
