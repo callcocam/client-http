@@ -58,6 +58,7 @@ abstract class AbstractController extends AbstractActionController
     public function getIdentityManager()
     {
         $this->IdentityManager=$this->container->get(IdentityManager::class);
+        $this->user=$this->IdentityManager->hasIdentity();
         return $this->IdentityManager;
     }
 

@@ -10,6 +10,7 @@ namespace Vendas;
 
 
 use Interop\Container\ContainerInterface;
+use Vendas\Factory\CartHeaderFactory;
 use Vendas\Form\Factory\ItensVendidosFilterFactory;
 use Vendas\Form\Factory\ItensVendidosFormFactory;
 use Vendas\Form\Factory\VendasFilterFactory;
@@ -74,7 +75,11 @@ class Module implements ConfigProviderInterface, ServiceProviderInterface,Contro
      */
     public function getControllerPluginConfig()
     {
-        // TODO: Implement getControllerPluginConfig() method.
+        return [
+            'factories'=>[
+                'VendasCart'=>CartHeaderFactory::class
+            ]
+        ];
     }
 
     /**
