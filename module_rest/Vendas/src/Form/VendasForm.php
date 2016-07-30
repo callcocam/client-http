@@ -205,6 +205,9 @@ class VendasForm extends AbstractForm implements AbstractFormInterface{
                 $this->get('cliente_id')->setValue('0');
             endif;
         endif;
+        if ($this->has('asset_id')):
+            $this->get('asset_id')->setValue('vendas');
+        endif;
 
     }
 

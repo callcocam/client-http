@@ -20,6 +20,7 @@ class AbstractModel {
     protected $empresa;
     protected $description;
     protected $state;
+    protected $access;
     protected $created;
     protected $modified;
 
@@ -149,6 +150,22 @@ class AbstractModel {
     public function setState($state)
     {
         $this->state = $state;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getAccess()
+    {
+        return $this->access;
+    }
+
+    /**
+     * @param mixed $access
+     */
+    public function setAccess($access)
+    {
+        $this->access = $access;
     }
 
     public function exchangeArray($options = array()) {

@@ -9,6 +9,7 @@
 namespace Vendas\Controller\Plugin;
 
 
+use Base\Form\AbstractInputFilter;
 use Base\Model\AbstractModel;
 use Base\Model\Result;
 use Interop\Container\ContainerInterface;
@@ -25,6 +26,9 @@ class CartHeader extends AbstractPlugin implements CartInterface {
      */
     private $container;
 
+     /**
+     * @var $filter AbstractInputFilter
+     */
     protected $filter;
 
     /**
@@ -49,17 +53,28 @@ class CartHeader extends AbstractPlugin implements CartInterface {
     }
 
 
-    public function add(AbstractModel $vendas)
+    public function add(AbstractModel $model)
     {
-        if($this->check($vendas)){
-
+        if($this->check($model)){
+            if($this->isResult())
+            {
+                $this->update($model);
+            }
+            else{
+                $this->_session->offsetSet($this->data->getTable(),$model->toArray());
+                $this->data->setData($this->read());
+                $this->data->setError("O PEDIDO FOI INICIADO COM SUCESSO");
+               }
         }
         return $this->getData();
     }
 
-    public function update(AbstractModel $vendas)
+    public function update(AbstractModel $model)
     {
-        if($this->check($vendas)){
+        if($this->check($model)){
+            $this->_session->offsetSet($this->data->getTable(),$model->toArray());
+            $this->data->setData($this->read());
+            $this->data->setError("O PEDIDO FOI ATUALIZADO COM SUCESSO");
 
         }
         return $this->getData();
@@ -78,7 +93,11 @@ class CartHeader extends AbstractPlugin implements CartInterface {
     public function read()
     {
         if($this->isResult()){
-
+            $this->data->setData($this->_session->offsetGet($this->data->getTable()));
+            $this->data->setClass('success');
+            $this->data->setError("O CARRINHO CONTEM ITEM");
+            $this->data->setResult(true);
+            return $this->data->getData();
         }
         return $this->getData();
     }
@@ -105,6 +124,7 @@ class CartHeader extends AbstractPlugin implements CartInterface {
                 $this->data->setError(implode(PHP_EOL,$msg));
 
             }
+        return $inputFilter->isValid();
     }
 
     /**
@@ -125,7 +145,7 @@ class CartHeader extends AbstractPlugin implements CartInterface {
 
     public function isResult()
     {
-        if($this->_session->offsetGet($this->data->getTable())){
+        if($this->_session->offsetExists($this->data->getTable())){
             return true;
         }
         return false;

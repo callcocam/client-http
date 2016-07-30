@@ -15,7 +15,6 @@ use Vendas\Form\VendasFilter;
 use Vendas\Form\VendasForm;
 use Vendas\Model\Vendas\Vendas;
 use Vendas\Model\Vendas\VendasRepository;
-use Zend\Debug\Debug;
 use Zend\View\Model\JsonModel;
 
 class VendasController extends AbstractController{
@@ -40,25 +39,27 @@ class VendasController extends AbstractController{
         /**
         * @var $model Vendas
         */
-        $data= array(
-            'id'		    => 1,
-            'codigo' 		=> md5($this->route),
-            'empresa'       => 1,
-            'asset_id'      => $this->controller,
-            'tipo'          => 1,
-            'created_by'    => $this->user->id,
-            'cliente_id'    => 1,
-            'fpgto'         => 1,
-            'cpgto'         => 1,
-            'desconto'      => '0,00',
-            'juros'         => '0,00',
-            'pago'          => '0,00',
-            'valor'         => '50,00',
-            'state'         => '0',
-            'access'        => '3',
-            'created'       => date("d-m-Y"),
-            'modified'      => date("d-m-Y H:i:s"));
-        if(!$this->getData()):
+        if($this->getData()):
+            $data=array_replace([
+                'id'		    => 1,
+                'codigo' 		=> md5($this->route),
+                'empresa'       => 1,
+                'asset_id'      => $this->controller,
+                'tipo'          => 1,
+                'created_by'    => $this->user->id,
+                'cliente_id'    => 1,
+                'fpgto'         => 1,
+                'cpgto'         => 1,
+                'desconto'      => '0,00',
+                'juros'         => '0,00',
+                'pago'          => '0,00',
+                'valor'         => '0,00',
+                'description'   => '',
+                'state'         => '0',
+                'access'        => '3',
+                'created'       => date("d-m-Y"),
+                'modified'      => date("d-m-Y H:i:s")],$this->data);
+
             $model=$this->getModel();
             $model->exchangeArray($data);
             $this->VendasCart()->add($model);
@@ -72,6 +73,12 @@ class VendasController extends AbstractController{
     public function readAction()
     {
         $this->VendasCart()->read();
+        return new JsonModel($this->VendasCart()->getData()->toArray());
+    }
+
+    public function destroyAction()
+    {
+        $this->VendasCart()->destroy();
         return new JsonModel($this->VendasCart()->getData()->toArray());
     }
 }

@@ -58,7 +58,35 @@
 <script>
     $(document).ready(function () {
       $(".cabecalho").change(function(){
-
+       var data={
+              id:		      $("#id").val(),
+              codigo: 		  $("#codigo").val(),
+              empresa:        $("#empresa").val(),
+              asset_id:       $("#asset_id").val(),
+              tipo:           $("#tipo").val(),
+              created_by:     $("#created_by").val(),
+              cliente_id:     $("#cliente_id").val(),
+              fpgto:          $("#fpgto").val(),
+              cpgto:          $("#cpgto").val(),
+              desconto:       $("#desconto").val(),
+              juros:          $("#juros").val(),
+              pago:           $("#pago").val(),
+              valor:          $("#valor").val(),
+              description:    $("#description").val(),
+              state:          $("#state").val(),
+              access:         $("#access").val(),
+              created:        $("#created").val(),
+              modified:       $("#modified").val()
+       };
+          $.ajax({
+              url:'/vendas/add',
+              type:'post',
+              datatype:'json',
+              data:data,
+              success:function(result){
+                  console.log(result);
+              }
+          })
 
       });
     })

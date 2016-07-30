@@ -97,7 +97,7 @@ class GerarViewHelper extends AbstractHelper {
             $visible = "";
             //verifica se o usuario pode ter acesso ao campo
             if ((int)$element->getAttribute('data-access')) {
-                $visible = $this->view->user['role_id'] <= $element->getAttribute('data-access') ? "" : " disabled";
+                $visible = $this->view->user->role_id <= $element->getAttribute('data-access') ? "" : " disabled";
             }
             if ($element->hasAttribute('placeholder')) {
                 $element->setAttribute('placeholder', $this->view->translate($element->getAttribute('placeholder')));
