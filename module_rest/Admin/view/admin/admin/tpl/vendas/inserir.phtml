@@ -136,6 +136,7 @@
                         $("#juros").val(result.juros);
                         $("#descontos").val(result.descontos)
                         $("#valor").val(result.valor);
+                        $("#valor").change();
                         $("#qtd").val('1');
                         $("#produto_id_chosen .chosen-single span").text("--SELECIONE UM NOVO PRODUTO--");
                         $.ajax({
