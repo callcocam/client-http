@@ -42,19 +42,22 @@ class ItenVendidosHelper extends AbstractHelper {
             ->setMessageOpenFormat('<ul class="nav"><li class="erro-obrigatorio">')
             ->setMessageSeparatorString('</li>')->render($form);
         $html[]=$this->view->form()->openTag($form);
-        $html[]= $this->view->Html('div')->setClass("col-md-6")->setText(PHP_EOL)->appendText(
+        $html[]= $this->view->Html('div')->setClass("col-md-7")->setText(PHP_EOL)->appendText(
             $this->view->Html('div')->setClass("form-group")->setText(PHP_EOL)->appendText($this->view->formElement($form->get('produto_id')))->appendText(PHP_EOL));
 
         $html[]= $this->view->Html('div')->setClass("col-md-2")->setText(PHP_EOL)->appendText(
             $this->view->Html('div')->setClass("form-group")->setText(PHP_EOL)->appendText($this->view->formElement($form->get('qtd')))->appendText(PHP_EOL));
 
-        $html[]= $this->view->Html('div')->setClass("col-md-3")->setText(PHP_EOL)->appendText(
-            $this->view->Html('div')->setClass("form-group")->setText(PHP_EOL)->appendText($this->view->formElement($form->get('unitario')))->appendText(PHP_EOL));
 
-        $html[]= $this->view->Html('div')->setClass("col-md-1")->setText(PHP_EOL)->appendText(
+        $html[]= $this->view->Html('div')->setClass("col-md-2")->setText(PHP_EOL)->appendText(
             $this->view->Html('div')->setClass("form-group")->setText(PHP_EOL)->appendText($this->view->formElement($form->get('save')))->appendText(PHP_EOL));
 
        $html[]=$this->view->form()->closeTag();
         return implode(PHP_EOL,$html);
+    }
+
+    public function getCart()
+    {
+        return $this->container->get('ItensCart');
     }
 }

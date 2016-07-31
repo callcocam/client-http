@@ -2,6 +2,7 @@
 namespace Base;
 
 use Base\Controller\Plugin\Messages;
+use Base\Controller\Plugin\SigaContas;
 use Base\Files\Factory\FilesServiceFactory;
 use Base\Files\FilesService;
 
@@ -112,6 +113,7 @@ class Module implements BootstrapListenerInterface, ConfigProviderInterface,Serv
         return [
             'factories'=>[
                 'Messages'=>Messages::class,
+                SigaContas::class=>SigaContas::class,
                 FilesService::class=>FilesServiceFactory::class,
                 Table::class=>TableFactory::class,
                 Client::class=>ClientHttpFactory::class,
@@ -164,7 +166,8 @@ class Module implements BootstrapListenerInterface, ConfigProviderInterface,Serv
     {
        return [
            'invokables'=>[
-               'Messages'=>Messages::class
+               'Messages'=>Messages::class,
+               'SigaContas'=>SigaContas::class
 
            ],
            'factories'=>[

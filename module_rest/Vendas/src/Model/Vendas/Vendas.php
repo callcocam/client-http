@@ -18,7 +18,7 @@ class Vendas extends AbstractModel {
     protected $cliente_id;
     protected $fpgto;
     protected $cpgto;
-    protected $desconto;
+    protected $descontos;
     protected $juros;
     protected $pago;
     protected $valor;
@@ -74,17 +74,17 @@ class Vendas extends AbstractModel {
     /**
      * @return mixed
      */
-    public function getDesconto()
+    public function getDescontos()
     {
-        return $this->desconto;
+        return $this->descontos;
     }
 
     /**
-     * @param mixed $desconto
+     * @param mixed $descontos
      */
-    public function setDesconto($desconto)
+    public function setDescontos($descontos)
     {
-        $this->desconto = $desconto;
+        $this->descontos = $descontos;
     }
 
     /**
@@ -135,8 +135,6 @@ class Vendas extends AbstractModel {
         $this->pago = $pago;
     }
 
-
-
     /**
      * @return mixed
      */
@@ -168,6 +166,8 @@ class Vendas extends AbstractModel {
     {
         $this->valor = $valor;
     }
+
+
 
 
 } 

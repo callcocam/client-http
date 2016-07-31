@@ -26,6 +26,7 @@ class VendasForm extends AbstractForm implements AbstractFormInterface{
                 'label' => 'FILD_CODIGO_LABEL'
             ],
             'attributes' => [
+                'id'=>'codigo',
                 'class' => 'form-control cabecalho',
                 'placeholder' => 'FILD_CODIGO_PLACEHOLDER',
                 'title' => 'FILD_CODIGO_TITLE',
@@ -41,7 +42,12 @@ class VendasForm extends AbstractForm implements AbstractFormInterface{
         $this->setCsrf([]);
         $this->setState(['type' => 'hidden']);
         $this->setDescription([ 'attributes' => [
-            'class' => 'form-control cabecalho'
+            'id'=>'description',
+            'class' => 'form-control cabecalho',
+            'placeholder' => 'FILD_DESCRIPTION_PLACEHOLDER',
+            'title' => 'FILD_DESCRIPTION_TITLE',
+            'data-access' => '3',
+            'data-position' => 'geral',
         ]]);
         $this->getAuthservice();
         parent::__construct($container, $name, $options);
@@ -54,11 +60,12 @@ class VendasForm extends AbstractForm implements AbstractFormInterface{
             ],
             'attributes' => [
                 'id' => 'cliente_id',
-                'class' => 'form-control cabecalho',
+                'class' => 'form-control cabecalho select2',
                 'placeholder' => 'FILD_CLIENTE_ID_PLACEHOLDER',
                 'title' => 'FILD_CLIENTE_ID_TITLE',
                 'data-access' => '3',
                 'data-position' => 'geral',
+                'style'=>'width:100%'
             ]
         ]);
 
@@ -94,20 +101,44 @@ class VendasForm extends AbstractForm implements AbstractFormInterface{
 
          $this->add([
             'type' => 'text',
-            'name' => 'desconto',
+            'name' => 'descontos',
             'options' => [
-                'label' => 'FILD_DESCONTO_LABEL'
+                'label' => 'FILD_DESCONTOS_LABEL'
             ],
             'attributes' => [
-                'id' => 'desconto',
+                'id' => 'descontos',
                 'class' => 'form-control real cabecalho',
-                'placeholder' => 'FILD_DESCONTO_PLACEHOLDER',
-                'title' => 'FILD_DESCONTO_TITLE',
+                'placeholder' => 'FILD_DESCONTOS_PLACEHOLDER',
+                'title' => 'FILD_DESCONTOS_TITLE',
                 'data-access' => '3',
                 'data-position' => 'geral',
-                'value'=>'0,00'
+                'value'=>'0,00',
+                'readonly'=>true
             ]
         ]);
+
+        $this->add(array(
+            'type' => 'radio',
+            'name' => 'situacao',
+            'options' => array(
+                'label' => 'FILD_SITUACAO_LABEL',
+                'label_attributes' => array(
+                    'class' => 'btn btn-default',
+                    'id' => 'sliderLabel',
+                ),
+                'value_options' => $this->config->get('fpgto',[])->toArray(),
+                "disable_inarray_validator" => true,
+            ),
+            'attributes' => array(
+                'id' => 'situacao',
+                'requerid' => '1',
+                'value' => '1',
+                'title' => 'situacao',
+                'data-access' => '3',
+                'data-position' => 'geral',
+                'class' => 'css-checkbox situacao',
+            )
+        ));
 
          $this->add([
             'type' => 'select',
@@ -139,7 +170,8 @@ class VendasForm extends AbstractForm implements AbstractFormInterface{
                 'title' => 'FILD_JUROS_TITLE',
                 'data-access' => '3',
                 'data-position' => 'geral',
-                'value'=>'0,00'
+                'value'=>'0,00',
+                'readonly'=>true
             ]
         ]);
 
@@ -175,7 +207,8 @@ class VendasForm extends AbstractForm implements AbstractFormInterface{
                 'title' => 'FILD_VALOR_TITLE',
                 'data-access' => '3',
                 'data-position' => 'geral',
-                'value'=>'0,00'
+                'value'=>'0,00',
+                'readonly'=>true
             ]
         ]);
 

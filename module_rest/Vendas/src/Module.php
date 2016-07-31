@@ -11,6 +11,7 @@ namespace Vendas;
 
 use Interop\Container\ContainerInterface;
 use Vendas\Factory\CartHeaderFactory;
+use Vendas\Factory\CartItensFactory;
 use Vendas\Form\Factory\ItensVendidosFilterFactory;
 use Vendas\Form\Factory\ItensVendidosFormFactory;
 use Vendas\Form\Factory\VendasFilterFactory;
@@ -62,7 +63,8 @@ class Module implements ConfigProviderInterface, ServiceProviderInterface,Contro
                 ItensVendidos::class=>ItensVendidosFactory::class,
                 ItensVendidosRepository::class=>ItensVendidosRepositoryFactory::class,
                 ItensVendidosForm::class=>ItensVendidosFormFactory::class,
-                ItensVendidosFilter::class=>ItensVendidosFilterFactory::class
+                ItensVendidosFilter::class=>ItensVendidosFilterFactory::class,
+                'ItensCart'=>CartItensFactory::class,
             ]
         ];
     }
@@ -77,7 +79,8 @@ class Module implements ConfigProviderInterface, ServiceProviderInterface,Contro
     {
         return [
             'factories'=>[
-                'VendasCart'=>CartHeaderFactory::class
+                'VendasCart'=>CartHeaderFactory::class,
+                'ItensCart'=>CartItensFactory::class,
             ]
         ];
     }

@@ -8,7 +8,6 @@
 
 namespace Vendas\Controller\Plugin;
 
-
 use Base\Form\AbstractInputFilter;
 use Base\Model\AbstractModel;
 use Base\Model\Result;
@@ -41,7 +40,7 @@ class CartHeader extends AbstractPlugin implements CartInterface {
      */
     public  function __construct(ContainerInterface $container, array $options,$iputFiter)
     {
-        $this->_session=new Container($options['cart']);
+        $this->_session=new Container($options['table']);
         $this->container = $container;
         $this->filter=$iputFiter;
         $this->setData(new Result());
@@ -50,18 +49,25 @@ class CartHeader extends AbstractPlugin implements CartInterface {
         $this->data->setClass("danger");
         $this->data->setData([]);
         $this->data->setTable($options['table']);
+
     }
 
 
-    public function add(AbstractModel $model)
+    /**
+     * @param AbstractModel $model
+     * @param $token
+     * @return mixed
+     */
+    public function add(AbstractModel $model,$token)
     {
         if($this->check($model)){
             if($this->isResult())
             {
-                $this->update($model);
+                $this->update($model,$token);
             }
             else{
-                $this->_session->offsetSet($this->data->getTable(),$model->toArray());
+                $this->_session[$this->data->getTable()]=[];
+                $this->_session[$this->data->getTable()][$token]=$model->toArray();
                 $this->data->setData($this->read());
                 $this->data->setError("O PEDIDO FOI INICIADO COM SUCESSO");
                }
@@ -69,10 +75,15 @@ class CartHeader extends AbstractPlugin implements CartInterface {
         return $this->getData();
     }
 
-    public function update(AbstractModel $model)
+    /**
+     * @param AbstractModel $model
+     * @param $token
+     * @return mixed
+     */
+    public function update(AbstractModel $model,$token)
     {
         if($this->check($model)){
-            $this->_session->offsetSet($this->data->getTable(),$model->toArray());
+            $this->_session[$this->data->getTable()][$token]=$model->toArray();
             $this->data->setData($this->read());
             $this->data->setError("O PEDIDO FOI ATUALIZADO COM SUCESSO");
 
@@ -80,16 +91,44 @@ class CartHeader extends AbstractPlugin implements CartInterface {
         return $this->getData();
     }
 
-    public function remove($token)
+
+    /**
+     * @param $token
+     * @param $field
+     * @param $value
+     */
+    public function updateItem($token, $field, $value)
     {
-        // TODO: Implement remove() method.
+        if($this->isResult()){
+            if(isset($this->_session[$this->data->getTable()][$token])){
+               $this->_session[$this->data->getTable()][$token][$field]=$value;
+            }
+        }
+        return $this->read();
     }
 
+    public function remove($token)
+    {
+        if($this->isResult()){
+            if(isset($this->_session[$this->data->getTable()][$token])){
+                unset( $this->_session[$this->data->getTable()][$token]);
+            }
+        }
+        return $this->read();
+    }
+
+    /**
+     * Destroy a sessão por completo
+     */
     public function destroy()
     {
        $this->_session->offsetUnset($this->data->getTable());
     }
 
+    /**
+     * Le os dados do carrinho
+     * @return mixed
+     */
     public function read()
     {
         if($this->isResult()){
@@ -102,11 +141,43 @@ class CartHeader extends AbstractPlugin implements CartInterface {
         return $this->getData();
     }
 
+
+    /**
+     * Calcula o total do carrinho
+     * @return array
+     */
     public function total()
     {
-        // TODO: Implement total() method.
+
+        if($this->isResult())
+        {
+            $pago="0.00";
+            $descontos="0.00";
+            $juros="0.00";
+            $total="0.00";
+            foreach($this->read() as $cart){
+                 if(isset($cart['valor'])){
+                     $total=$this->Calcular($total,$cart['valor'],'+');
+                 }
+                if(isset($cart['pago'])){
+                    $pago=$this->Calcular($pago,$cart['pago'],'+');
+                }
+                if(isset($cart['descontos'])){
+                    $descontos=$this->Calcular($descontos,$cart['descontos'],'+');
+                }
+                if(isset($cart['juros'])){
+                    $juros=$this->Calcular($juros,$cart['juros'],'+');
+                }
+            }
+        }
+        return ['pago'=>$pago,'descontos'=>$descontos,'juros'=>$juros,'valor'=>$total];
     }
 
+
+    /**
+     * @param AbstractModel $model
+     * @return bool
+     */
     public function check(AbstractModel $model)
     {
             $inputFilter=$this->filter->getInputFilter();
@@ -150,4 +221,42 @@ class CartHeader extends AbstractPlugin implements CartInterface {
         }
         return false;
     }
+
+
+    public function Calcular($v1,$v2,$op) {
+        $v1 = str_replace ( ".", "", $v1);
+        $v1 = str_replace ( ",", ".", $v1);
+        $v2 = str_replace ( ".", "",$v2 );
+        $v2 = str_replace ( ",", ".",$v2);
+        switch ($op) {
+            case "+":
+                $r = $v1 + $v2;
+                break;
+            case "-":
+                $r = $v1 - $v2;
+                break;
+            case "*":
+                $r = $v1 * $v2;
+                break;
+            case "%":
+                $bs = $v1 / 100;
+                $j = $v2 * $bs;
+                $r = $v1 + $j;
+                break;
+            case "/":
+                @$r = @$v1 / $v2;
+                break;
+            case "tj":
+                $bs = $v1 / 100;
+                $j = $v2 * $bs;
+                $r = $j;
+                break;
+            default :
+                $r = $v1;
+                break;
+        }
+        $ret = @number_format ( $r, 2, ",", "." );
+        return $ret;
+    }
+
 }

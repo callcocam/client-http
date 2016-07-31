@@ -91,7 +91,7 @@ class VendasFilter extends AbstractInputFilter{
         ]);
 
         $inputFilter->add([
-            'name' => 'desconto',
+            'name' => 'descontos',
             'required' => true,
             'filters' => [
                 ['name' => StripTags::class],

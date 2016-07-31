@@ -13,6 +13,7 @@
         ->prependStylesheet($this->basePath('css/floatexamples.css'))
                         ->prependStylesheet($this->basePath('css/icheck/flat/green.css'))
                         ->prependStylesheet($this->basePath('css/custom.css'))
+                        ->prependStylesheet($this->basePath('css/bootstrap-chosen/bootstrap-chosen.css'))
                         ->prependStylesheet($this->basePath('css/animate.min.css'))
                         ->prependStylesheet($this->basePath('css/pnotify.custom.min.css'))
                         ->prependStylesheet($this->basePath('fonts/css/font-awesome.min.css'))
@@ -23,6 +24,9 @@
             ->prependFile($this->basePath('js/Manager.js'))
             ->prependFile($this->basePath('js/notify.init.js'))
             ->prependFile($this->basePath('js/custom.js'))
+            ->prependFile($this->basePath('js/validator/jquery.validate.min.js'))
+            ->prependFile($this->basePath('js/formatCurrency.js'))
+            ->prependFile($this->basePath('js/chosen/chosen.jquery.min.js'))
             ->prependFile($this->basePath('js/wizard/jquery.smartWizard.js'))
             ->prependFile($this->basePath('js/pnotify.custom.min.js'))
             ->prependFile($this->basePath('js/jquery.form.min.js'))
@@ -71,8 +75,10 @@
       <!-- /top navigation -->
          <!-- page content -->
       <div class="right_col" role="main">
-          <div class="">
+          <div class="" style="min-height: 800px;">
+
                 <?= $this->content; ?>
+              <div class="clearfix"></div>
           </div>
      <!-- footer content -->
 

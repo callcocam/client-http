@@ -418,7 +418,8 @@ class AbstractForm extends Form{
     }
 
     /**
-     * @param mixed $captchaImage
+     * @return \Base\View\Helper\Form\Custom\Captcha\CustomCaptcha
+     * @internal param mixed $captchaImage
      */
     public function getCaptchaImage()
     {
@@ -442,7 +443,7 @@ class AbstractForm extends Form{
         $valueOptions = array('--SELECIONE--');
         if ($dados->getData()->count()):
             foreach ($dados->getData() as $value):
-                $valueOptions[$value->getId()] = $value->getTitle();
+                $valueOptions[$value->getId()] =sprintf("%s - %s",$value->getId(),$value->getTitle());
             endforeach;
         endif;
 

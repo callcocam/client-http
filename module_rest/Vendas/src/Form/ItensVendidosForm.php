@@ -25,7 +25,13 @@ class ItensVendidosForm extends AbstractForm implements AbstractFormInterface{
         $this->setCreated(['type' => 'hidden']);
         $this->setEmpresa([]);
         $this->setModified(['type' => 'hidden']);
-        $this->setSave([]);
+        $this->setSave(['attributes'=>[
+            'type' => 'button',
+            'value' => 'ADD ITEM',
+            'title' => 'Adicionar O Item Selecionado',
+            'class' => 'btn btn-primary submitbutton',
+            'id' => 'save',
+        ]]);
         $this->setCsrf([]);
         $this->setState(['type' => 'hidden']);
         $this->setDescription(['type' => 'hidden']);
@@ -40,7 +46,7 @@ class ItensVendidosForm extends AbstractForm implements AbstractFormInterface{
             ],
             'attributes' => [
                 'id' => 'produto_id',
-                'class' => 'form-control',
+                'class' => 'form-control select2 produto',
                 'placeholder' => 'FILD_PORDUTO_ID_PLACEHOLDER',
                 'title' => 'FILD_PORDUTO_ID_TITLE',
                 'data-access' => '3',
@@ -61,19 +67,22 @@ class ItensVendidosForm extends AbstractForm implements AbstractFormInterface{
         ]);
 
          $this->add([
-            'type' => 'text',
+            'type' => 'number',
             'name' => 'qtd',
             'options' => [
                 'label' => 'FILD_QTD_LABEL'
             ],
             'attributes' => [
                 'id' => 'qtd',
-                'class' => 'form-control real',
+                'class' => 'form-control',
                 'placeholder' => 'FILD_QTD_PLACEHOLDER',
                 'title' => 'FILD_QTD_TITLE',
                 'data-access' => '3',
                 'data-position' => 'geral',
-                'value'=>'0,00'
+                'min'  => '1',
+                'max'  => '10000',
+                'step' => '1',
+                'value'=>'1'
             ]
         ]);
 

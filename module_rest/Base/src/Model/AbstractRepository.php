@@ -121,6 +121,7 @@ abstract class AbstractRepository{
             $this->data->setClass(self::SUCCESS);
             return $this->data;
         endif;
+        $this->data->setResult(false);
         $this->data->setClass(self::INFO);
         $this->data->setError("NEMHUM RESULTADO FOI ENCOTADO PARA A SU PESQUISA");
         return $this->data;

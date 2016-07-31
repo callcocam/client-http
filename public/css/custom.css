@@ -5389,3 +5389,7 @@ ul.notifications {
 
 .css-label{margin: 0 5px 0 0 !important;}
 .real{text-align: right;}
+.stepContainer{z-index: 99;}
+.chosen-container{z-index: 1000;}
+.chosen-results{z-index: 9999  !important;}
+.wizard_content{min-height: 400px;}

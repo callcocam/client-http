@@ -124,3 +124,27 @@ function showResponse(responseText, statusText, xhr, $form)  {
     notice.update(options);
     $('.btn').attr('disabled',false);
 }
+
+function print(URL) {
+    var mn = 'menubar=no';
+    var width = 700;
+    var height = 500;
+    var left = 99;
+    var top = 99;
+    window
+        .open(
+        URL,
+        'janela',
+        'width='
+        + width
+        + ',height='
+        + height
+        + ','
+        + mn
+        + ',top='
+        + top
+        + ', left='
+        + left
+        + ',scrollbars=yes,status=no, toolbar=no,location=no,directories=no,menubar=yes,resizable=no,fullscreen=no');
+
+}

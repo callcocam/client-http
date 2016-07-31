@@ -25,8 +25,8 @@
                                 </div>
                                 <div class="col-md-3 col-xs-12">
                                     <div class="form-group">
-                                        <label class="control-label" for="desconto"> <?php echo $this->translate('{{desconto}}');?>  </label>
-                                        #desconto#
+                                        <label class="control-label" for="descontos"> <?php echo $this->translate('{{descontos}}');?>  </label>
+                                        #descontos#
                                     </div>
                                 </div>
                                 <div class="col-md-3 col-xs-12">
@@ -68,7 +68,7 @@
               cliente_id:     $("#cliente_id").val(),
               fpgto:          $("#fpgto").val(),
               cpgto:          $("#cpgto").val(),
-              desconto:       $("#desconto").val(),
+              descontos:      $("#descontos").val(),
               juros:          $("#juros").val(),
               pago:           $("#pago").val(),
               valor:          $("#valor").val(),
@@ -84,11 +84,74 @@
               datatype:'json',
               data:data,
               success:function(result){
-                  console.log(result);
+
               }
           })
 
       });
+        $("#save").click(function(){
+            addItem($("#qtd").val(),$("#produto_id").val());
+        });
+
+        $("table").on('change','.qtd',function(){
+            addItem($(this).val(),$(this).attr('id'));
+        });
+
+        $("table").on('click','.remove',function(){
+            recarregar($(this).attr('href'),'get','json',null);
+            return false;
+
+        });
+        function addItem(qtd,produto)
+        {
+            var data={
+                id:		        "AUTOMATICO",
+                codigo: 		$("#codigo").val(),
+                empresa:        $("#empresa").val(),
+                asset_id:       "itensvendidos",
+                venda_id:       $("#id").val(),
+                produto_id:     produto,
+                qtd:            qtd,
+                valor:          $("#valor").val(),
+                description:    $("#description").val(),
+                state:          $("#state").val(),
+                access:         $("#access").val(),
+                created:        $("#created").val(),
+                modified:       $("#modified").val()
+            };
+            recarregar("/itensvendidos/add",'post','json',data);
+         }
+        function recarregar(url,method,tp,data){
+            $.ajax({
+                url:url,
+                type:method,
+                datatype:tp,
+                data:data,
+                beforeSend:function()
+                {
+                    $("#itens").html("<tr><td colspan='6' align='center'><span class='fa fa-spinner fa-5x'></span></td></tr>");
+                },
+                success:function(result){
+                    if(result.result==true){
+                        $("#juros").val(result.juros);
+                        $("#descontos").val(result.descontos)
+                        $("#valor").val(result.valor);
+                        $("#qtd").val('1');
+                        $("#produto_id_chosen .chosen-single span").text("--SELECIONE UM NOVO PRODUTO--");
+                        $.ajax({
+                            url:"/itensvendidos/recarrega",
+                            type:'get',
+                            datatype:'html',
+                            success:function(data){
+                                $("#itens").html(data);
+                            }
+                        });
+                    }
+
+
+                }
+            });
+        }
     })
 
 </script>

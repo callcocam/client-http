@@ -38,6 +38,29 @@ class CartHeaderFactory implements FactoryInterface
             'on_insert_update_existing_item' => false,
             'table'=>'bs_vendas'
         );
+        /*if (!isset($items['id']) or
+            ! isset($items['codigo']) or
+            ! isset($items['asset_id']) or
+            ! isset($items['empresa']) or
+            ! isset($items['tipo']) or
+            ! isset($items['created_by']) or
+            ! isset($items['cliente_id']) or
+            ! isset($items['fpgto']) or
+            ! isset($items['cpgto']) or
+            ! isset($items['desconto']) or
+            ! isset($items['juros']) or
+            ! isset($items['pago']) or
+            ! isset($items['valor']) or
+            ! isset($items['state']) or
+            ! isset($items['access']) or
+            ! isset($items['created']) or
+            ! isset($items['modified'])
+        )
+        {
+            throw new \Exception('The Insert method takes an array that must contain id, codigo, asset_id, empresa,
+                tipo, created_by, cliente_id, fpgto, cpgto, desconto, juros, pago, valor, state, access, created ou modified.');
+            return FALSE;
+        }*/
 
         $options = array_merge($default, $config['zendcart']);
 
