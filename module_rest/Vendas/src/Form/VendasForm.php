@@ -119,43 +119,22 @@ class VendasForm extends AbstractForm implements AbstractFormInterface{
 
         $this->add(array(
             'type' => 'radio',
-            'name' => 'situacao',
+            'name' => 'fpgto',
             'options' => array(
-                'label' => 'FILD_SITUACAO_LABEL',
-                'label_attributes' => array(
-                    'class' => 'btn btn-default',
-                    'id' => 'sliderLabel',
-                ),
+                //'label' => 'FILD_FPGTO_LABEL',
                 'value_options' => $this->config->get('fpgto',[])->toArray(),
                 "disable_inarray_validator" => true,
             ),
             'attributes' => array(
-                'id' => 'situacao',
+                'id' => 'fpgto',
                 'requerid' => '1',
                 'value' => '1',
-                'title' => 'situacao',
                 'data-access' => '3',
                 'data-position' => 'geral',
-                'class' => 'css-checkbox situacao',
+                'class' => 'fpgto',
+                'icones'=>['1'=>'fa fa-money fa-3x','2'=>'fa fa-cc-paypal fa-3x','3'=>'fa fa-credit-card fa-3x','4'=>'fa fa-barcode fa-3x','5'=>'fa fa-calendar fa-3x']
             )
         ));
-
-         $this->add([
-            'type' => 'select',
-            'name' => 'fpgto',
-            'options' => [
-                'label' => 'FILD_FPGTO_LABEL',
-                'value_options'=>$this->config->get('fpgto',['--'=>'--SELECIONE--'])->toArray()
-            ],
-            'attributes' => [
-                'id' => 'fpgto',
-                'class' => 'form-control cabecalho',
-                'placeholder' => 'FILD_FPGTO_PLACEHOLDER',
-                'title' => 'FILD_FPGTO_TITLE',
-                'data-access' => '3',
-                'data-position' => 'geral',
-            ]
-        ]);
 
          $this->add([
             'type' => 'text',
@@ -213,7 +192,7 @@ class VendasForm extends AbstractForm implements AbstractFormInterface{
         ]);
 
         $this->add(array(
-            'type' => 'select',
+            'type' => 'radio',
             'name' => 'tipo',
             'options' => array(
                 'label' => 'FILD_TIPO_LABEL',
@@ -223,10 +202,10 @@ class VendasForm extends AbstractForm implements AbstractFormInterface{
             'attributes' => array(
                 'id' => 'tipo',
                 'value' => '1',
-                'title' => 'Serviço Ou produto',
                 'data-access' => '3',
                 'data-position' => 'geral',
-                'class' => 'css-checkbox situacao  form-control cabecalho',
+                'class' => 'tipo',
+
             )
         ));
 

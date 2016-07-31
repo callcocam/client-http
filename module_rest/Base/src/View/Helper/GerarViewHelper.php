@@ -114,9 +114,10 @@ class GerarViewHelper extends AbstractHelper {
             } elseif ($element->getAttribute('type') === "submit") {
                 $this->setBtn($key);
                 self::$html["#{$key}#"] = $this->view->formSubmit($element);
-            } elseif ($element->getAttribute('type') === "radio") {
+           } elseif ($element->getAttribute('type') === "radio") {
+                self::$html["#{$key}#"] = $this->radio($element);
                 $this->setBtn($key);
-                self::$html["#{$key}#"] = $this->view->FormRadio($element);
+
             } else {
                 if ($blokcs === "geral") {
                     $this->setGeral($key, $visible);
@@ -186,6 +187,25 @@ class GerarViewHelper extends AbstractHelper {
         $label=$this->view->Html("div")->setAttributes(['class'=>'control-label col-md-4 col-sm-4 col-xs-12','for'=>'{{$key}}'])->setText(PHP_EOL)->appendText("<?php echo \$this->translate('{{{$key}}}');?>");
         $input=$this->view->Html("div")->setClass('col-md-8 xdisplay_inputx form-group has-feedback')->setText(PHP_EOL)->appendText("#{$key}#")->appendText($addon);
         self::$datas[$key] = $this->view->Html("div")->setClass('form-group')->setText(PHP_EOL)->appendText($label)->appendText($input)->appendText(PHP_EOL);
+    }
+
+    public function radio($element){
+
+        foreach($element->getValueOptions() as $key=> $options){
+            $icone=$element->getAttribute('icones');
+            $attr=$element->getAttributes();
+            $attr['title']=$options;
+            $attr['value']=$key;
+            $ctive=$key==$element->getValue()?"active":"";
+            if(isset($attr['icones'])){
+                unset($attr['icones']);
+                $options=$this->view->Html("span")->setClass($icone[$key]);
+            }
+            $input=$this->view->Html("input")->setAttributes($attr);
+            $label[]=$this->view->Html("label")->setAttributes(['class'=>"btn btn-default {$ctive}",'title'=>$attr['title']])->setText(PHP_EOL)->appendText($input)->appendText($options);
+        }
+       return implode('',$label);
+
     }
 
     public function setHidden($key) {
